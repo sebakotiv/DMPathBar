@@ -154,6 +154,11 @@
 	[self setNeedsDisplay:YES];
 }
 
+- (void)setBackFaderColor:(NSColor *)backFaderColor {
+	_backFaderColor = backFaderColor;
+	[self setNeedsDisplay:YES];
+}
+
 #pragma mark - Public Methods -
 
 - (void)setEnabled:(BOOL)enabled {
@@ -458,14 +463,16 @@
 	requiredWidth = roundf(requiredWidth);
 	
 	CGFloat compressionPerItem = 0.0f;
-	BOOL compressionIsForAll = NO;
+//	BOOL compressionIsForAll = YES;
 	if (requiredWidth > availableWidth) {
 		// We want to compress proportionally only items in the middle between the title and the second-last item
 		CGFloat extraNeededSpace = (requiredWidth-availableWidth);
-		compressionIsForAll = (itemsArray.count <= 2);
-		NSInteger itemsToCompress = (!compressionIsForAll ? itemsArray.count-2 : itemsArray.count);
-		if (compressionIsForAll || (!compressionIsForAll && currentExpandedItemIdx > 1 && currentExpandedItemIdx < itemsArray.count-1))
-			itemsToCompress-=1; // one of the compressed items is not compressed, shift it's delta to the other items
+//		compressionIsForAll = (itemsArray.count <= 2);
+//		NSInteger itemsToCompress = (!compressionIsForAll ? itemsArray.count-1 : itemsArray.count);
+		NSInteger itemsToCompress = itemsArray.count - 1;
+		NSLog(@"--> itemsToCompress %d", itemsToCompress);
+//		if (compressionIsForAll || (!compressionIsForAll && currentExpandedItemIdx > 1 && currentExpandedItemIdx < itemsArray.count-1))
+//			itemsToCompress -= 1; // one of the compressed items is not compressed, shift it's delta to the other items
 		compressionPerItem = ceilf((extraNeededSpace/itemsToCompress));
 	}
 	
@@ -494,6 +501,7 @@
 				offsetX += CGRectGetWidth(arrowIconFrame);
 			}
 			DMPathBarItem *item = itemsArray[currentItemIdx];
+//			NSLog(@"--> item: %@", item);
 			NSSize itemBestSize = [item bestContentSizeWithMax:contentSize];
 			NSRect itemRect = NSIntegralRect(NSMakeRect(offsetX, rect.origin.y, itemBestSize.width, contentSize.height));
 			
@@ -501,7 +509,8 @@
 			BOOL isItemExpanded = (currentExpandedItemIdx != NSNotFound && currentExpandedItemIdx == currentItemIdx);
 			
 			BOOL isCompressed = NO;
-			if ( compressionPerItem > 0 && (currentItemIdx != 0 && !isLastItem) && !isItemExpanded) {
+//			if ( compressionPerItem > 0 && (currentItemIdx != 0 && !isLastItem) && !isItemExpanded) {
+			if ( compressionPerItem > 0 && !isLastItem && !isItemExpanded) {
 				isCompressed = YES;
 				itemRect.size.width -= compressionPerItem;
 			}

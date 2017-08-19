@@ -35,9 +35,12 @@
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
+	NSColor *color = _pathBarItem.pathBar.backFaderColor ?
+		_pathBarItem.pathBar.backFaderColor :
+		_pathBarItem.pathBar.backActiveColor;
 	NSGradient *g = [[NSGradient alloc] initWithColorsAndLocations:
-					 [NSColor colorWithCalibratedWhite:1.0f alpha:0.0f], 0.0f,
-					 _pathBarItem.pathBar.backActiveColor, 0.7f, nil];
+					 [color colorWithAlphaComponent:0], 0.0f,
+					 color, 1.f, nil];
 	[g drawInRect:self.bounds angle:0];
 }
 
@@ -172,6 +175,7 @@
 	BOOL isEnabled = _pathBar.enabled;
 	
 	BOOL isTitleItem = ([_pathBar.items indexOfObject:self] == 0);
+	isTitleItem = NO;
 	NSDictionary *textAttrsDict;
 	if (isKeyWindow && isEnabled && _enabled)
 		textAttrsDict = (isTitleItem ? _boldActiveTitleAttributes : _activeTitleAttributes);

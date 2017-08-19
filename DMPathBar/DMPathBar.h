@@ -27,6 +27,7 @@ IB_DESIGNABLE
 @property (nonatomic,retain)	NSColor					*backSelectedColor;		// Default is a light gray
 @property (nonatomic,retain)	NSColor					*backInactiveColor;		// Default is a light gray
 @property (nonatomic,retain)	NSColor					*backShadowColor;		// Default is a dark gray
+@property (nonatomic,retain)	NSColor					*backFaderColor;		// Default is a back active color
 @property (nonatomic,assign)	NSEdgeInsets			 contentInsets;			// Default is (1,1,1,1)
 @property (nonatomic,assign)	CGFloat					 cornerRadius;			// Default is 4.0f
 @property (nonatomic,retain)	NSImage					*arrowIcon;				// Default is 'arrow'
