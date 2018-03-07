@@ -97,6 +97,7 @@
 }
 
 - (void)dealloc {
+	[self removeObserver:self forKeyPath:@"frame"];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidBecomeMainNotification object:self.window];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidResignMainNotification object:self.window];
 }
@@ -202,7 +203,7 @@
 					arrowIcon.frame = CGRectOffset(arrowIcon.frame, -10, 0);
 				}
 			}
-			[self layoutItems:YES completion:aCompletion];
+			[self layoutItems:aAnimated completion:aCompletion];
 		}
 	}];
 }
