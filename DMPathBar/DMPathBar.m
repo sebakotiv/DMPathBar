@@ -76,7 +76,7 @@
 {
 	if (object == self) {
 		// frame changed; reflow path elements to fill new space or compress with less space
-		[self layoutItems:YES completion:NULL];
+		[self layoutItems:NO completion:NULL];
 	}
 }
 
