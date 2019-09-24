@@ -216,7 +216,7 @@
 	}
 	
 	__weak __typeof__(self) weakSelf = self;
-	[self addItem: aBucketList[aIdx] animated:YES completion:^{
+	[self addItem: aBucketList[aIdx] animated:NO completion:^{
 		[weakSelf recursiveAddItemFromBucket:aBucketList idx: (aIdx+1) withCompletion:aCompletion];
 	}];
 }
@@ -305,7 +305,7 @@
 }
 
 - (void) recursiveRemoveLastItemFromBucketWithCompletion:(void (^)(void)) aCompletion {
-	[self removeItemAnimated:YES completion:^{
+	[self removeItemAnimated:NO completion:^{
 		if (itemsArray.count == 0) {
 			if (aCompletion) aCompletion();
 		} else
@@ -471,7 +471,7 @@
 //		compressionIsForAll = (itemsArray.count <= 2);
 //		NSInteger itemsToCompress = (!compressionIsForAll ? itemsArray.count-1 : itemsArray.count);
 		NSInteger itemsToCompress = itemsArray.count - 1;
-		NSLog(@"--> itemsToCompress %d", itemsToCompress);
+//        NSLog(@"--> itemsToCompress %d", itemsToCompress);
 //		if (compressionIsForAll || (!compressionIsForAll && currentExpandedItemIdx > 1 && currentExpandedItemIdx < itemsArray.count-1))
 //			itemsToCompress -= 1; // one of the compressed items is not compressed, shift it's delta to the other items
 		compressionPerItem = ceilf((extraNeededSpace/itemsToCompress));
