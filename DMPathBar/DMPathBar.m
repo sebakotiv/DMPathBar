@@ -417,7 +417,7 @@
 	if (CGRectEqualToRect(CGRectZero, self.bounds) || !_drawsBackground)
 		return;
 	
-	NSRect backPathRect = CGRectMake(0.0f, 0.0f, CGRectGetWidth(_bounds), CGRectGetHeight(_bounds));
+	NSRect backPathRect = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
 	NSRect contentPathRect = CGRectMake(0.0f, 0.0f, CGRectGetWidth(backPathRect), CGRectGetHeight(backPathRect)-1);
 	
 	[NSGraphicsContext saveGraphicsState];
@@ -620,7 +620,7 @@
 			NSEvent *fakeEvent = [NSEvent mouseEventWithType:NSLeftMouseUp location:fakeLocation
 											   modifierFlags: 0
 												   timestamp: NSTimeIntervalSince1970
-												windowNumber: [_window windowNumber]
+												windowNumber: [self.window windowNumber]
 													 context: nil
 												 eventNumber: 0
 												  clickCount: 0
